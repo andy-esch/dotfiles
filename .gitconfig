@@ -1,0 +1,17 @@
+[user]
+	name = Andy Eschbacher
+	email = andyesch@protonmail.com 
+[core]
+	editor = vim
+[credential]
+	helper = osxkeychain
+[color]
+    branch = auto
+    status = auto
+    diff = auto
+    showbranch = auto
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan
+    branch = blue reverse bold
