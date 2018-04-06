@@ -1,9 +1,8 @@
 " vimrc
 " Andy Eschbacher, Feb. 2017
 
-syntax on
+syntax enable
 set background=light
-colorscheme solarized
 set nocompatible
 filetype off
 set laststatus=2
@@ -21,10 +20,17 @@ set expandtab
 " highlight all search matches (from "/pattern")
 set hlsearch
 
+" map esc to kj
+inoremap kj <ESC>
+
+" vv for new vertical split
+nnoremap <silent> vv <C-w>v
+nnoremap <silent> hh <C-w>s
+
 " powerline
-python3 from powerline.vim import setup as powerline_setup
-python3 powerline_setup()
-python3 del powerline_setup
+" python3 from powerline.vim import setup as powerline_setup
+" python3 powerline_setup()
+" python3 del powerline_setup
 
 " setup clipboard to work with macos
 " TODO: does this fit all the cases you're interested in?
@@ -46,8 +52,11 @@ Plugin 'tpope/vim-surround'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'w0rp/ale'
 Plugin 'davidhalter/jedi-vim'
+Plugin 'micha/vim-colors-solarized'
 call vundle#end()
 
+" Add fzf to runtime path
+set rtp+=/usr/local/opt/fzf
 " setup pathogen (github.com/tpope/vim-pathogen)
 "execute pathogen#infect()
 
