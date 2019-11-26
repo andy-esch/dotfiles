@@ -1,22 +1,15 @@
-# [[ -r ~/.bashrc ]] && . ~/.bashrc
-
 # show branch in git
 # export GITAWAREPROMPT=~/.bash/git-aware-prompt
 # source "${GITAWAREPROMPT}/main.sh"
-# export PS1="\u:\W \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]\\n$ "
 source /usr/local/etc/bash_completion.d/git-completion.bash
 source /usr/local/etc/bash_completion.d/git-prompt.sh
-# GIT_PS1_SHOWDIRTYSTATE=true
-# GIT_PS1_SHOWCOLORHINTS=true
-# export PS1="\[\033[34m\]\w \[\033[00m\]$(__git_ps1)\n\A $ "
-# export PS1='\[\033[34m\]\w \[\033[36m\]$(__git_ps1)\[\033[00m\]\n $ '
-# export PS1='\[\033[34m\]\w\[\033[31m\]$(__git_ps1)\[\033[00m\]\n $ '
-# export PS1="\[\033[34m\]\w \[\033[36m\]\$git_branch\[\033[31m\]\$git_dirty\[\033[00m\]\n\A $ "
+
+# for matplotlib use in virtualenvs
 function frameworkpython {
     if [[ ! -z "$VIRTUAL_ENV" ]]; then
         PYTHONHOME=$VIRTUAL_ENV /usr/local/bin/python3 "$@"
     else
-        /usr/local/bin/python3 "$@"
+       /usr/local/bin/python3 "$@"
     fi
 }
 
@@ -25,7 +18,7 @@ powerline-daemon -q
 POWERLINE_BASH_CONTINUATION=1
 POWERLINE_BASH_SELECT=1
 # export POWERLINE_CONFIG_COMMAND="/usr/local/bin/powerline-config"
-. /usr/local/lib/python3.6/site-packages/powerline/bindings/bash/powerline.sh
+. /usr/local/lib/python3.7/site-packages/powerline/bindings/bash/powerline.sh
 
 # git bash completion
 # from: https://github.com/git/git/blob/master/contrib/completion/git-completion.bash
@@ -34,14 +27,17 @@ POWERLINE_BASH_SELECT=1
 
 # Environment variables
 export EDITOR="vim"
-export repos="/Users/peschbacher/git/CartoDB/"
-export cartodev="/Users/peschbacher/Desktop/CARTO/dev-env"
-export andy="/Users/peschbacher/git/andy-esch/"
-export carto="/Users/peschbacher/git/CartoDB/"
-export notes="/Users/peschbacher/git/andy-esch/notes/"
-export git="/Users/peschbacher/git/"
+export PIPENV_SKIP_LOCK=True
 
-## Update PATH
+## project directories
+export repos="/Users/aeschbacher/git/CartoDB/"
+export andy="/Users/aeschbacher/git/andy-esch/"
+export carto="/Users/aeschbacher/git/CartoDB/"
+export notes="/Users/aeschbacher/git/andy-esch/notes/"
+export git="/Users/aeschbacher/git/"
+export andyresearch="/Users/aeschbacher/git/CartoDB/research/andy/"
+
+# Update PATH
 
 ### Add local bin
 export PATH=~/bin:$PATH
@@ -58,7 +54,8 @@ export PGUSER="postgres"
 ### postgresql server stuffs
 export PATH=/opt/local/lib/postgresql95/bin:$PATH
 
-
+export CARTO_BASE_URL="https://eschbacher.carto.com"
+export CARTO_API_KEY=""
 
 # Add colors to terminal
 # if [ "$TMUX" ]; then
@@ -72,7 +69,7 @@ export PATH=/opt/local/lib/postgresql95/bin:$PATH
 
 export OPENWEATHERMAP_APIKEY='...'
 export GMAPS_APIKEY='...'
-export BOT_ID='U2CM523GQ'
+export BOT_ID=''
 export SLACK_BOT_TOKEN='...'
 
 
@@ -96,6 +93,18 @@ function mkcd {
 	cd $@;
 }
 
+function exit_if_no_jobs() {
+    local running=$(jobs -rp | wc -l);
+    if [ $running -gt 0 ]
+    then
+      echo "Cannot exit, "$running" jobs are running";
+    else
+      exit;
+    fi;
+}
+
+alias ej='exit_if_no_jobs';
+
 alias postgres_start='sudo /opt/local/etc/LaunchDaemons/org.macports.postgresql95-server/postgresql95-server.wrapper start';
 alias postgres_stop='sudo /opt/local/etc/LaunchDaemons/org.macports.postgresql95-server/postgresql95-server.wrapper stop';
 alias postgres_restart='sudo /opt/local/etc/LaunchDaemons/org.macports.postgresql95-server/postgresql95-server.wrapper restart';
@@ -113,7 +122,9 @@ alias lf="ls -l | egrep -v '^d'"
 alias ldir="ls -l | egrep '^d'"
 alias gs="git status"
 alias gsu="git status -uno"
-
+alias gsd="git status ."
+alias prjl="pipenv run jupyter lab"
+alias tsc="tmuxinator start carto"
 
 # Change to directory, list files
 cd2() { builtin cd "$@"; ll; }
@@ -156,16 +167,10 @@ alias portcheck='sudo port selfupdate && port echo outdated'
 
 
 DROPBOX=~/Desktop/Dropbox/
-RESUME=$HOME/Documents/JobApplications/Resume/
 CARTO=$HOME/Desktop/CARTO/
 andy=$HOME/git/andy-esch
 
 # Check out http://natelandau.com/my-mac-osx-bash_profile/ for ideas
-
-# MacPorts Installer addition on 2016-12-31_at_11:46:04: adding an appropriate PATH variable for use with MacPorts.
-export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-# Finished adapting your PATH environment variable for use with MacPorts.
-
 
 # docker thingy for kaggle data sci install. Jan 18 2017
 kjupyter() {
@@ -193,3 +198,11 @@ gpsdocker() {
     docker run -d -P --name pyspark -v $PWD:/home/jovyan/work jupyter/pyspark-notebook:c1b0cf6bf4d6 start-notebook.sh --NotebookApp.token=''
     echo "running pyspark on: "$(docker port pyspark)
 }
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/aeschbacher/.gcloud/google-cloud-sdk/path.bash.inc' ]; then . '/Users/aeschbacher/.gcloud/google-cloud-sdk/path.bash.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/aeschbacher/.gcloud/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/aeschbacher/.gcloud/google-cloud-sdk/completion.bash.inc'; fi

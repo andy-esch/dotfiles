@@ -43,21 +43,21 @@ root: ~/
 # post: tmux -CC attach -t carto
 
 windows:
-  - notes:
-      root: <%= ENV["notes"] %>
+  - todos: vim ~/Desktop/internal-notes/New\ ToDo.md
+  - notes: cd <%= ENV["notes"] %>
   - cartoframes:
       root: <%= ENV["carto"] %>/cartoframes
-      layout: main-vertical
+      layout: 0660,238x53,0,0{119x53,0,0,1,118x53,120,0[118x26,120,0,4,118x26,120,27,5]}
       # Synchronize all panes of this window, can be enabled before or after the pane commands run.
       # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
       # synchronize: after
       panes:
-        -
+        - 
+        - pipenv run jupyter lab --name='CARTOframes'
         - pipenv shell
-        - pipenv shell
-  - crankshaft:
-      root: <%= ENV["carto"] %>/crankshaft
-      layout: tiled
+  - research-repo:
+      root: <%= ENV["carto"] %>/research/andy
+      layout: 0660,238x53,0,0{119x53,0,0,1,118x53,120,0[118x26,120,0,4,118x26,120,27,5]}
       panes:
         -
         -

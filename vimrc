@@ -25,12 +25,12 @@ inoremap kj <ESC>
 
 " vv for new vertical split
 nnoremap <silent> vv <C-w>v
-nnoremap <silent> hh <C-w>s
+" nnoremap <silent> hh <C-w>s
 
 " powerline
-" python3 from powerline.vim import setup as powerline_setup
-" python3 powerline_setup()
-" python3 del powerline_setup
+python3 from powerline.vim import setup as powerline_setup
+python3 powerline_setup()
+python3 del powerline_setup
 
 " setup clipboard to work with macos
 " TODO: does this fit all the cases you're interested in?
@@ -43,16 +43,20 @@ set colorcolumn=80
 set backspace=indent,eol,start
 
 " Vundle pieces
-" Update with :PluginInstall
+" Install with :PluginInstall
+" Update with :PluginUpdate
+" More info with :h vundle
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-markdown'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'w0rp/ale'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'micha/vim-colors-solarized'
+Plugin 'psf/black'
 call vundle#end()
 
 " Add fzf to runtime path
@@ -75,4 +79,6 @@ let g:jedi#use_splits_not_buffers = "left"
 " highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 " match OverLength /\%81v.\+/
 
+" markdown syntax highlighting
+let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
 
