@@ -1,7 +1,10 @@
-# show branch in git
-# export GITAWAREPROMPT=~/.bash/git-aware-prompt
-# source "${GITAWAREPROMPT}/main.sh"
+# Andy Eschbacher, bashrc
+# MacBook Pro, 2020
+
+eval "$(pipenv --completion)"
+# git bash completion
 source /usr/local/etc/bash_completion.d/git-completion.bash
+# show git branch in terminal
 source /usr/local/etc/bash_completion.d/git-prompt.sh
 
 # for matplotlib use in virtualenvs
@@ -20,22 +23,15 @@ POWERLINE_BASH_SELECT=1
 # export POWERLINE_CONFIG_COMMAND="/usr/local/bin/powerline-config"
 . /usr/local/lib/python3.7/site-packages/powerline/bindings/bash/powerline.sh
 
-# git bash completion
-# from: https://github.com/git/git/blob/master/contrib/completion/git-completion.bash
-# more: https://git-scm.com/book/en/v1/Git-Basics-Tips-and-Tricks#Auto-Completion
-# source ~/.git-completion.bash
-
 # Environment variables
 export EDITOR="vim"
 export PIPENV_SKIP_LOCK=True
+export AIRFLOW_HOME=~/airflow
 
 ## project directories
-export repos="/Users/aeschbacher/git/CartoDB/"
 export andy="/Users/aeschbacher/git/andy-esch/"
-export carto="/Users/aeschbacher/git/CartoDB/"
 export notes="/Users/aeschbacher/git/andy-esch/notes/"
 export git="/Users/aeschbacher/git/"
-export andyresearch="/Users/aeschbacher/git/CartoDB/research/andy/"
 
 # Update PATH
 
@@ -47,6 +43,7 @@ export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 ### Python-y path
 export PATH=/usr/local/share/python3:$PATH
 
+# TODO: REMOVE - no longer in use
 ## PostgreSQL Environment Variables
 export PGPASSWORD="postgres"
 export PGUSER="postgres"
@@ -54,25 +51,17 @@ export PGUSER="postgres"
 ### postgresql server stuffs
 export PATH=/opt/local/lib/postgresql95/bin:$PATH
 
-export CARTO_BASE_URL="https://eschbacher.carto.com"
-export CARTO_API_KEY=""
-
-# Add colors to terminal
-# if [ "$TMUX" ]; then
-    # export CLICOLOR=1
-# fi
-# alias tmux="TERM=screen-256color-bce tmux"
-# export LSCOLORS=ExFxBxDxCxegedabagacad
+# carto credentials
+export CARTO_BASE_URL="..."
+export CARTO_API_KEY="..."
 
 ## ENV for projects
 ### API Keys for andybot
 
 export OPENWEATHERMAP_APIKEY='...'
 export GMAPS_APIKEY='...'
-export BOT_ID=''
+export BOT_ID='...'
 export SLACK_BOT_TOKEN='...'
-
-
 
 
 # bash-completion
@@ -105,10 +94,12 @@ function exit_if_no_jobs() {
 
 alias ej='exit_if_no_jobs';
 
+# TODO: remove - no longer in use
 alias postgres_start='sudo /opt/local/etc/LaunchDaemons/org.macports.postgresql95-server/postgresql95-server.wrapper start';
 alias postgres_stop='sudo /opt/local/etc/LaunchDaemons/org.macports.postgresql95-server/postgresql95-server.wrapper stop';
 alias postgres_restart='sudo /opt/local/etc/LaunchDaemons/org.macports.postgresql95-server/postgresql95-server.wrapper restart';
 
+# TODO: remove - no longer in use
 # See if a port is installed
 portinst() { port echo installed | grep "$@"; }
 
@@ -120,16 +111,34 @@ alias mkdir='mkdir -pv'
 alias ll='ls -FGlAhp'
 alias lf="ls -l | egrep -v '^d'"
 alias ldir="ls -l | egrep '^d'"
-alias gs="git status"
-alias gsu="git status -uno"
-alias gsd="git status ."
-alias prjl="pipenv run jupyter lab"
-alias tsc="tmuxinator start carto"
 
 # Change to directory, list files
 cd2() { builtin cd "$@"; ll; }
 
+# git-related
+alias gs="git status"
+alias gsu="git status -uno"
+alias gsd="git status ."
+
+# workflow
+# install common libraries and default python
+# alias pisr="pipenv install jupyterlab cartoframes seaborn"
+# easy start notebook
+alias prjl="pipenv run jupyter lab"
+# setup standard work environment
+alias tsc="tmuxinator start carto"
+alias pi="pipenv install"
+
+pisr() {
+    pipenv --three
+    pipenv install jupyterlab cartoframes seaborn black
+    pipenv run jupyter labextension install @jupyterlab/toc
+}
+
+
 # Start simple Python server in current directory
+# setup basic http server from port 1234
+# usage: pyserv 1234
 pyserv() { 
     pyversion=$(python -c 'import sys; print(sys.version_info[:][0])')
     if [ "$#" -eq 1 ]; then
@@ -146,12 +155,6 @@ pyserv() {
     fi
 }
 
-# Make named map in CartoDB
-mknm() {
-    a=$(curl "https://andye.cartodb.com/api/v1/map/named?api_key="$1 -H 'Content-Type: application/json' -d @$2)
-    echo $a
-}
-
 # Different ways to view man pages
 pman () {
 	man -t "${1}" | open -f -a /Applications/Preview.app
@@ -162,7 +165,7 @@ tman () {
 
 alias ..="cd .."
 
-# 
+# TODO: remove - no longer in use
 alias portcheck='sudo port selfupdate && port echo outdated'
 
 
@@ -199,8 +202,10 @@ gpsdocker() {
     echo "running pyspark on: "$(docker port pyspark)
 }
 
+# TODO - is the in use?
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+# Google Cloud things
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/aeschbacher/.gcloud/google-cloud-sdk/path.bash.inc' ]; then . '/Users/aeschbacher/.gcloud/google-cloud-sdk/path.bash.inc'; fi
 

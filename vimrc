@@ -37,7 +37,7 @@ python3 del powerline_setup
 set clipboard=unnamed
 
 " draw a line at column 80
-set colorcolumn=80
+set colorcolumn=88
 
 " backspace rules
 set backspace=indent,eol,start
@@ -57,6 +57,7 @@ Plugin 'w0rp/ale'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'micha/vim-colors-solarized'
 Plugin 'psf/black'
+Plugin 'mechatroner/rainbow_csv'
 call vundle#end()
 
 " Add fzf to runtime path
