@@ -29,9 +29,9 @@ export PIPENV_SKIP_LOCK=True
 export AIRFLOW_HOME=~/airflow
 
 ## project directories
-export andy="/Users/aeschbacher/git/andy-esch/"
-export notes="/Users/aeschbacher/git/andy-esch/notes/"
-export git="/Users/aeschbacher/git/"
+export andy=$HOME"/git/andy-esch/"
+export notes=$HOME"/git/andy-esch/notes/"
+export git=$HOME"/git/"
 
 # Update PATH
 
@@ -47,22 +47,8 @@ export PATH=/usr/local/share/python3:$PATH
 ## PostgreSQL Environment Variables
 export PGPASSWORD="postgres"
 export PGUSER="postgres"
-#export PGDATA="/opt/local/var/db/postgresql93/defaultdb"
 ### postgresql server stuffs
 export PATH=/opt/local/lib/postgresql95/bin:$PATH
-
-# carto credentials
-export CARTO_BASE_URL="..."
-export CARTO_API_KEY="..."
-
-## ENV for projects
-### API Keys for andybot
-
-export OPENWEATHERMAP_APIKEY='...'
-export GMAPS_APIKEY='...'
-export BOT_ID='...'
-export SLACK_BOT_TOKEN='...'
-
 
 # bash-completion
 if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
