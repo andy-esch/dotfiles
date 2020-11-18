@@ -161,33 +161,6 @@ andy=$HOME/git/andy-esch
 
 # Check out http://natelandau.com/my-mac-osx-bash_profile/ for ideas
 
-# docker thingy for kaggle data sci install. Jan 18 2017
-kjupyter() {
-      ip="$(docker-machine ip docker2)"
-      echo $ip
-      if [ -z "$1" ]
-      then
-        hostnum="8889"
-      else
-        hostnum="$1"
-      fi 
-       (sleep 3 && open "http://$ip:$hostnum")&
-          docker run -v $PWD:/tmp/working -w=/tmp/working -p $hostnum:8888 --rm -it cvxopt jupyter notebook --no-browser --ip="0.0.0.0" --notebook-dir=/tmp/working --config NotebookApp.token=''
-      } 
-
-
-docker_ssh() {
-  docker exec -i -t $1 /bin/bash
-}
-
-
-# carto spark docker work
-gpsdocker() {
-    cd $CARTO/spark/
-    docker run -d -P --name pyspark -v $PWD:/home/jovyan/work jupyter/pyspark-notebook:c1b0cf6bf4d6 start-notebook.sh --NotebookApp.token=''
-    echo "running pyspark on: "$(docker port pyspark)
-}
-
 # TODO - is the in use?
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
