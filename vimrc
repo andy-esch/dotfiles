@@ -38,6 +38,7 @@ set clipboard=unnamed
 
 " draw a line at column 80
 set colorcolumn=88
+highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 " backspace rules
 set backspace=indent,eol,start
@@ -58,6 +59,7 @@ Plugin 'davidhalter/jedi-vim'
 Plugin 'micha/vim-colors-solarized'
 Plugin 'psf/black'
 Plugin 'mechatroner/rainbow_csv'
+Plugin 'ervandew/supertab'
 call vundle#end()
 
 " Add fzf to runtime path
