@@ -29,9 +29,9 @@ export PIPENV_SKIP_LOCK=True
 export AIRFLOW_HOME=~/airflow
 
 ## project directories
-export andy="/Users/aeschbacher/git/andy-esch/"
-export notes="/Users/aeschbacher/git/andy-esch/notes/"
-export git="/Users/aeschbacher/git/"
+export andy=$HOME"/git/andy-esch/"
+export notes=$HOME"/git/andy-esch/notes/"
+export git=$HOME"/git/"
 
 # Update PATH
 
@@ -47,22 +47,8 @@ export PATH=/usr/local/share/python3:$PATH
 ## PostgreSQL Environment Variables
 export PGPASSWORD="postgres"
 export PGUSER="postgres"
-#export PGDATA="/opt/local/var/db/postgresql93/defaultdb"
 ### postgresql server stuffs
 export PATH=/opt/local/lib/postgresql95/bin:$PATH
-
-# carto credentials
-export CARTO_BASE_URL="..."
-export CARTO_API_KEY="..."
-
-## ENV for projects
-### API Keys for andybot
-
-export OPENWEATHERMAP_APIKEY='...'
-export GMAPS_APIKEY='...'
-export BOT_ID='...'
-export SLACK_BOT_TOKEN='...'
-
 
 # bash-completion
 if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
@@ -174,33 +160,6 @@ CARTO=$HOME/Desktop/CARTO/
 andy=$HOME/git/andy-esch
 
 # Check out http://natelandau.com/my-mac-osx-bash_profile/ for ideas
-
-# docker thingy for kaggle data sci install. Jan 18 2017
-kjupyter() {
-      ip="$(docker-machine ip docker2)"
-      echo $ip
-      if [ -z "$1" ]
-      then
-        hostnum="8889"
-      else
-        hostnum="$1"
-      fi 
-       (sleep 3 && open "http://$ip:$hostnum")&
-          docker run -v $PWD:/tmp/working -w=/tmp/working -p $hostnum:8888 --rm -it cvxopt jupyter notebook --no-browser --ip="0.0.0.0" --notebook-dir=/tmp/working --config NotebookApp.token=''
-      } 
-
-
-docker_ssh() {
-  docker exec -i -t $1 /bin/bash
-}
-
-
-# carto spark docker work
-gpsdocker() {
-    cd $CARTO/spark/
-    docker run -d -P --name pyspark -v $PWD:/home/jovyan/work jupyter/pyspark-notebook:c1b0cf6bf4d6 start-notebook.sh --NotebookApp.token=''
-    echo "running pyspark on: "$(docker port pyspark)
-}
 
 # TODO - is the in use?
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
