@@ -5,6 +5,8 @@ eval "$(pipenv --completion)"
 # git bash completion
 source /usr/local/etc/bash_completion.d/git-completion.bash
 # show git branch in terminal
+# NOTE: when using this with powerline-status
+#       use `default_leftonly` in config files in ~/.config/powerline
 source /usr/local/etc/bash_completion.d/git-prompt.sh
 
 # for matplotlib use in virtualenvs
