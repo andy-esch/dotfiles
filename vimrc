@@ -1,5 +1,5 @@
 " vimrc
-" Andy Eschbacher, Feb. 2017
+" Andy Eschbacher, Feb. 2020
 
 syntax enable
 set background=light
@@ -19,6 +19,8 @@ set shiftwidth=4
 set expandtab
 " highlight all search matches (from "/pattern")
 set hlsearch
+hi Search ctermfg=white
+hi Search ctermbg=blue
 
 " map esc to kj
 inoremap kj <ESC>
@@ -36,7 +38,7 @@ python3 del powerline_setup
 " TODO: does this fit all the cases you're interested in?
 set clipboard=unnamed
 
-" draw a line at column 80
+" draw a line at column 88
 set colorcolumn=88
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
