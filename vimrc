@@ -19,8 +19,8 @@ set shiftwidth=4
 set expandtab
 " highlight all search matches (from "/pattern")
 set hlsearch
-hi Search ctermfg=white
-hi Search ctermbg=blue
+highlight Search ctermfg=white
+highlight Search ctermbg=DarkGrey
 
 " map esc to kj
 inoremap kj <ESC>
@@ -54,14 +54,18 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-markdown'
 Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'w0rp/ale'
+Plugin 'dense-analysis/ale'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'micha/vim-colors-solarized'
+" :BlackUpdate
 Plugin 'psf/black'
 Plugin 'mechatroner/rainbow_csv'
 Plugin 'ervandew/supertab'
+Plugin 'junegunn/vim-slash'
+Plugin 'itchyny/landscape.vim'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
 call vundle#end()
 
 " Add fzf to runtime path
@@ -69,15 +73,22 @@ set rtp+=/usr/local/opt/fzf
 " setup pathogen (github.com/tpope/vim-pathogen)
 "execute pathogen#infect()
 
-" github.com/w0rp/ale (linter)
+" github.com/dense-analysis/ale (linter)
 " set statusline+=%{ALEGetStatusLine()}
 " let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
+let g:ale_linters = {'python': ['pycodestyle']}
 nmap <silent> <C-p> <Plug>(ale_previous_wrap)
 nmap <silent> <C-n> <Plug>(ale_next_wrap)
 
 " Vim Jedi configuration
 let g:jedi#use_tabs_not_buffers = 1
 let g:jedi#use_splits_not_buffers = "left"
+
+" Vim Markdown config
+let g:vim_markdown_folding_disabled = 1
+" concel level for vim-markdown, but note
+"  this is a global setting
+set conceallevel=2
 
 " TODO: setup sensible? https://github.com/tpope/vim-sensible
 
@@ -86,4 +97,3 @@ let g:jedi#use_splits_not_buffers = "left"
 
 " markdown syntax highlighting
 let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
-
