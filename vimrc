@@ -1,5 +1,5 @@
 " vimrc
-" Andy Eschbacher, Feb. 2022
+" Andy Eschbacher, Jan. 2022
 
 syntax enable
 " set background=dark
@@ -34,6 +34,7 @@ nnoremap <silent> vv <C-w>v
 " Black shortened
 command B Black
 
+
 " Remove whitespace in Python files on save
 " autocmd BufWritePre * :%s/\s\+$//e
 
@@ -65,68 +66,66 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-sensible'
 " 
-Plugin 'tpope/vim-surround'
+" Plugin 'tpope/vim-surround'
 " Git support
-Plugin 'tpope/vim-fugitive'
+" Plugin 'tpope/vim-fugitive'
 " Tmux/vim split navigation/integration
 Plugin 'christoomey/vim-tmux-navigator'
 " Linter support
 Plugin 'dense-analysis/ale'
 " Auto complete
-" Plugin 'davidhalter/jedi-vim'
-Plugin 'Valloric/YouCompleteMe'
+Plugin 'davidhalter/jedi-vim'
+" Plugin 'Valloric/YouCompleteMe'
 Plugin 'micha/vim-colors-solarized'
 "Upgrade black version: :BlackUpgrade
 Plugin 'psf/black'
+Plugin 'fisadev/vim-isort'
 Plugin 'mechatroner/rainbow_csv'
 " Tab completion within insert mode
 Plugin 'ervandew/supertab'
 " Plugin 'junegunn/vim-slash'
 " Color scheme
 Plugin 'itchyny/landscape.vim'
-Plugin 'godlygeek/tabular'
+" Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
-Plugin 'maksimr/vim-jsbeautify'
 " show git edits
 Plugin 'airblade/vim-gitgutter'
 call vundle#end()
 
-" Point YCM to the Pipenv created virtualenv, if possible
-" At first, get the output of 'pipenv --venv' command.
-let pipenv_venv_path = system('pipenv --venv')
-" The above system() call produces a non zero exit code whenever
-" a proper virtual environment has not been found.
-" So, second, we only point YCM to the virtual environment when
-" the call to 'pipenv --venv' was successful.
-" Remember, that 'pipenv --venv' only points to the root directory
-" of the virtual environment, so we have to append a full path to
-" the python executable.
-if shell_error == 0
-  let venv_path = substitute(pipenv_venv_path, '\n', '', '')
-  let g:ycm_python_binary_path = venv_path . '/bin/python'
-else
-  let g:ycm_python_binary_path = 'python'
-endif
+colorscheme solarized
 
+" Point YCM to the Pipenv created virtualenv, if possible
+" python with virtualenv support
+
+" python3 << EOF
+" import os
+" import sys
+" if 'VIRTUAL_ENV' in os.environ:
+"     virtualenv_base_dir = os.environ['VIRTUAL_ENV']
+" elif os.path.exists('.venv'):
+"     virtualenv_base_dir = os.path.join(os.getcwd(), '.venv')
+" 
+" 
+" activate_this = os.path.join(virtualenv_base_dir, 'bin/activate_this.py')
+" exec(open(activate_this, dict(__file__=activate_this))
+" EOF
 
 " github.com/dense-analysis/ale (linter)
-" set statusline+=%{ALEGetStatusLine()}
-let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 " Check Python files with flake8 and pylint.
-let g:ale_linters = {'python': ['flake8', 'mypy']} " , 'pydocstyle']}
-" let g:ale_fixers = {'python': ['isort']}
-let g:ale_fix_on_save = 1
-" let g:ale_python_flake8_executable = 'pipenv'
-" let g:ale_use_global_executables = 1
-let g:ale_virtualenv_dir_names = [system('pipenv --venv')]
-let g:pipenv_venv_path = system('pipenv --venv')
-let g:ale_python_auto_pipenv = 1
+let g:ale_python_ruff_auto_poetry = 1
+let g:ale_linters = {'python': ['ruff', 'flake8', 'pylint']} " , 'pylint', 'ruff']}
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'python': ['ruff']
+\}
+let g:ale_virtualenv_dir_names = ['.venv']
+" let g:ale_python_auto_pipenv = 1
+" let g:ale_python_flake8_auto_pipenv = 1
+" let g:ale_python_pylint_auto_pipenv = 1
+let g:ale_python_auto_poetry = 1
+let g:ale_python_flake8_auto_poetry = 1
 nmap <silent> <C-p> <Plug>(ale_previous_wrap)
 nmap <silent> <C-n> <Plug>(ale_next_wrap)
-
-" Vim Jedi configuration
-" let g:jedi#use_tabs_not_buffers = 1
-" let g:jedi#use_splits_not_buffers = "left"
 
 " Vim Markdown config
 let g:vim_markdown_folding_disabled = 1
